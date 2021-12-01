@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/product.dart';
+import 'package:shop_app/models/product.dart';
+import 'package:shop_app/providers/products.dart';
+import 'package:shop_app/widgets/productDetails.dart';
 
 class myTile extends StatelessWidget {
-  final String id;
-  final String title;
-  final String description;
-  final double price;
-  final String imageUrl;
-  myTile(
-      {this.description = '21',
-      this.id = '12',
-      this.imageUrl = '12',
-      this.price = 12.1,
-      this.title = '/2'});
-
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context, listen: true);
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
       child: GridTile(
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed('/categories', arguments: product.id.toString());
+          },
+          child: Image.network(
+            product.imageUrl,
+            fit: BoxFit.cover,
+          ),
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
           leading: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                product.toggle();
+              },
               icon: Icon(
-                Icons.favorite_outline,
+                product.isFavourite == false
+                    ? Icons.favorite_outline
+                    : Icons.favorite,
                 color: Theme.of(context).accentColor,
               )),
           trailing: IconButton(
@@ -39,7 +43,7 @@ class myTile extends StatelessWidget {
           ),
           title: FittedBox(
             child: Text(
-              title,
+              product.title,
               textAlign: TextAlign.center,
             ),
           ),
