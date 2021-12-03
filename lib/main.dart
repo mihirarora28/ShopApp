@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/models/cart.dart';
 import 'package:shop_app/providers/products.dart';
+import 'package:shop_app/widgets/badge.dart';
 import 'package:shop_app/widgets/product.dart';
 import 'package:shop_app/widgets/productDetails.dart';
 import 'package:shop_app/widgets/productsGrid.dart';
@@ -18,9 +20,17 @@ enum FilterSelection {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: Products(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Products(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Cart(),
+        ),
+      ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
             primarySwatch: Colors.blue,
@@ -46,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final container = Provider.of<Products>(context);
+    final conf = Provider.of<Cart>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -74,7 +85,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text('Show me All'),
                       value: FilterSelection.ShowAll),
                 ];
-              })
+              }),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Badge(
+                child: Icon(
+                  Icons.shopping_cart,
+                  size: 30,
+                ),
+                color: Colors.red,
+                value: conf.itemcounts.toString()),
+          )
         ],
         backgroundColor: Colors.yellow[800],
         title: Text('Shop App'),
