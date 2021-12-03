@@ -7,6 +7,7 @@ import 'package:shop_app/widgets/product.dart';
 import 'package:shop_app/widgets/productDetails.dart';
 import 'package:shop_app/widgets/productsGrid.dart';
 import 'models/product.dart';
+import 'package:shop_app/screens/cart_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(),
         routes: {
           '/categories': (ctx) => ProductDetails(),
+          '/cartScreen': (ctx) => cartScreen(),
         },
       ),
     );
@@ -88,13 +90,18 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
           Padding(
             padding: EdgeInsets.all(10),
-            child: Badge(
-                child: Icon(
-                  Icons.shopping_cart,
-                  size: 30,
-                ),
-                color: Colors.red,
-                value: conf.itemcounts.toString()),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/cartScreen');
+              },
+              child: Badge(
+                  child: Icon(
+                    Icons.shopping_cart,
+                    size: 30,
+                  ),
+                  color: Colors.red,
+                  value: conf.itemcounts.toString()),
+            ),
           )
         ],
         backgroundColor: Colors.yellow[800],

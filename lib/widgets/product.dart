@@ -38,7 +38,7 @@ class myTile extends StatelessWidget {
               )),
           trailing: IconButton(
             onPressed: () {
-              products.addItem(product.id, product.description, product.price);
+              products.addItem(product.id, product.title, product.price);
             },
             icon: Icon(
               Icons.shopping_cart,
