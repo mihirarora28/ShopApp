@@ -14,6 +14,25 @@ class ProductDetails extends StatelessWidget {
       appBar: AppBar(
           backgroundColor: Colors.yellow[800],
           title: Text(loadedProducts.title.toString())),
+      body: Column(
+        children: [
+          Container(
+              alignment: Alignment.center,
+              height: 300,
+              child: Image.network(loadedProducts.imageUrl)),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            loadedProducts.title,
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            height: 30.0,
+          ),
+          Text(loadedProducts.description)
+        ],
+      ),
     );
   }
 }

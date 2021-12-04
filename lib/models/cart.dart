@@ -6,8 +6,13 @@ class Cartitem {
   final String title;
   final int quantity;
   final double price;
+  final String image;
   Cartitem(
-      {this.id = '1', this.title = '2', this.quantity = 1, this.price = 31.1});
+      {this.id = '1',
+      this.title = '2',
+      this.quantity = 1,
+      this.price = 31.1,
+      this.image = '1'});
 }
 
 class Cart with ChangeNotifier {
@@ -29,14 +34,21 @@ class Cart with ChangeNotifier {
     return totalsum;
   }
 
-  void addItem(String ProductId, String title, double price) {
+  void removeItem(String id) {
+    _items.remove(id);
+    notifyListeners();
+  }
+
+  void addItem(String ProductId, String title, double price, String url) {
     if (_items.containsKey(ProductId)) {
       _items.update(ProductId, (value) {
         return Cartitem(
-            id: value.id,
-            title: value.title,
-            quantity: _items[ProductId]!.quantity + 1,
-            price: price);
+          id: value.id,
+          title: value.title,
+          quantity: _items[ProductId]!.quantity + 1,
+          price: price,
+          image: url,
+        );
       });
     } else {
       _items.putIfAbsent(
@@ -47,6 +59,11 @@ class Cart with ChangeNotifier {
               quantity: 1,
               price: price));
     }
+    notifyListeners();
+  }
+
+  void clear() {
+    _items = {};
     notifyListeners();
   }
 }
