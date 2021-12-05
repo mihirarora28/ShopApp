@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/models/cart.dart';
 import 'package:shop_app/providers/orders.dart';
 import 'package:shop_app/providers/products.dart';
+import 'package:shop_app/screens/drawer.dart';
+import 'package:shop_app/screens/orders_screen.dart';
 import 'package:shop_app/widgets/badge.dart';
 import 'package:shop_app/widgets/product.dart';
 import 'package:shop_app/widgets/productDetails.dart';
@@ -45,6 +47,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/categories': (ctx) => ProductDetails(),
           '/cartScreen': (ctx) => cartScreen(),
+          '/cartScreen2': (ctx) => ordersScreen(),
         },
       ),
     );
@@ -64,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final container = Provider.of<Products>(context);
     final conf = Provider.of<Cart>(context, listen: true);
     return Scaffold(
+      drawer: appDrawer(),
       appBar: AppBar(
         actions: [
           PopupMenuButton(

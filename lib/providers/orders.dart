@@ -9,12 +9,15 @@ class order {
   @required
   final double total;
   @required
-  final DateTime? dateTime;
-  order(
-      {this.dateTime,
-      this.id = '1',
-      this.products = const [],
-      this.total = 12.1});
+  final DateTime dateTime;
+  bool expanded;
+  order({
+    required this.dateTime,
+    this.id = '1',
+    this.products = const [],
+    this.total = 12.1,
+    this.expanded = false,
+  });
 }
 
 class orderITem with ChangeNotifier {
