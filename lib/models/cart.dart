@@ -4,6 +4,7 @@ import 'package:shop_app/models/product.dart';
 class Cartitem {
   final String id;
   final String title;
+
   final int quantity;
   final double price;
   final String image;
@@ -58,6 +59,25 @@ class Cart with ChangeNotifier {
               title: title,
               quantity: 1,
               price: price));
+    }
+    notifyListeners();
+  }
+  void removeAnItem(String id){
+    if(_items.containsKey(id)){
+      if(_items[id]!.quantity > 1){
+        _items.update(id, (value) {
+          return Cartitem(
+            id: value.id,
+            title: value.title,
+            quantity: _items[id]!.quantity - 1,
+            price: value.price,
+            image: value.image,
+          );
+        });
+      }
+      else{
+        _items.remove(id);
+      }
     }
     notifyListeners();
   }

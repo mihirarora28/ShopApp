@@ -80,8 +80,22 @@ class cartScreen extends StatelessWidget {
                       color: Colors.red,
                       alignment: Alignment.centerRight,
                     ),
+                    confirmDismiss: (direction) =>showDialog(context: context,
+                        builder: (ctx)=>  AlertDialog(
+                        title: Text('Do you really want to delete the Row'),
+                        actions: [
+                          FlatButton(onPressed: (){
+                            Navigator.of(context).pop(true);
+                          }, child: Text('YES')),
+                          FlatButton(onPressed: (){
+                            Navigator.of(context).pop(false);
+                          }, child: Text('NO')),
+                        ],
+                      )
+                    ),
                     onDismissed: (direction) {
                       product.removeItem(product.item.keys.toList()[i]);
+
                     },
                     child: Card(
                         elevation: 5.0,

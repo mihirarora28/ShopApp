@@ -40,6 +40,17 @@ class myTile extends StatelessWidget {
             onPressed: () {
               products.addItem(
                   product.id, product.title, product.price, product.imageUrl);
+              Scaffold.of(context).hideCurrentSnackBar();
+              Scaffold.of(context).showSnackBar(SnackBar(
+                action: SnackBarAction(
+                  label: 'UNDO',
+                  onPressed: (){
+
+                    products.removeAnItem(product.id);
+                  },
+                ),
+                duration: Duration(seconds: 2),
+                  content: Text('Item added to the List')));
             },
             icon: Icon(
               Icons.shopping_cart,
