@@ -53,7 +53,10 @@ class Products with ChangeNotifier {
      _list.add(value);
     notifyListeners();
   }
-
+  void deleteAnItem(String id) {
+    _list.removeWhere((element) => element.id == id);
+        notifyListeners();
+  }
   // void myfavourites() {
   //   isFavourties = true;
   //   notifyListeners();

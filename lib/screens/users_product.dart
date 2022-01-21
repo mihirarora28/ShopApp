@@ -15,7 +15,9 @@ class ProductDetailsUserChange extends StatelessWidget {
         title: Text('Shop App'),
         backgroundColor: Colors.yellow[800],
         actions: [
-         IconButton(onPressed: (){}, icon: Icon(Icons.add))
+         IconButton(onPressed: (){
+           Navigator.of(context).pushNamed('/editMyProducts');
+         }, icon: Icon(Icons.add))
         ],
       ),
       body: ListView.builder(
@@ -42,10 +44,10 @@ class ProductDetailsUserChange extends StatelessWidget {
                 child: Row(
                       children: [
                         IconButton(onPressed: (){
-
+                          productsofScreen.deleteAnItem(myList[index].id);
                         }, icon: Icon(Icons.delete,color: Theme.of(context).errorColor,)),
                         IconButton(onPressed: (){
-                          Navigator.of(context).pushNamed('/editMyProducts');
+
                         }, icon: Icon(Icons.edit),),
                       ],
                 ),

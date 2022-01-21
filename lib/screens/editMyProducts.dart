@@ -10,7 +10,7 @@ class EditMyForms extends StatefulWidget {
 }
 
 class _EditMyFormsState extends State<EditMyForms> {
-
+  final _formKey = GlobalKey<FormState>();
   final _priceFocusNode = FocusNode();
   final _DescriptionFocusNode = FocusNode();
   final _myControllerforImage = TextEditingController();
@@ -19,6 +19,10 @@ class _EditMyFormsState extends State<EditMyForms> {
   final _myControllerDescription = TextEditingController();
 
   void _SaveForm(){
+    final isValid  = _formKey.currentState?.validate();
+    if(isValid == false){
+      return;
+    }
     var title = _myControllerTitle.text;
     var price = double.parse(_myControllerPrice.text);
     var ImageUrl = _myControllerforImage.text;
@@ -57,10 +61,19 @@ _SaveForm();
         ],
       ),
       body:Form(
+        key: _formKey,
         child: ListView(
           padding: EdgeInsets.all(20.0),
           children: [
             TextFormField(
+              validator: (value){
+                if(value?.length == 0){
+                  return 'Please Provide A Title';
+                }
+                else{
+                  return null ;
+                }
+              },
               onFieldSubmitted: (data){
                 FocusScope.of(context).requestFocus(_priceFocusNode);
                },
@@ -69,6 +82,18 @@ _SaveForm();
               controller: _myControllerTitle,
             ),
             TextFormField(
+              validator: (value){
+                if(value == null ){
+                  return 'Please Enter a Price';
+                }
+                if(value.length == 0){
+                  return 'Please Enter a Price';
+                }
+                if(double.tryParse(value) == null ){
+                  return 'Please Enter a Valid Number';
+                }
+                return null;
+              },
               controller: _myControllerPrice,
               onFieldSubmitted: (data){
                 FocusScope.of(context).requestFocus(_DescriptionFocusNode);
@@ -81,6 +106,18 @@ _SaveForm();
               ),
             ),
             TextFormField(
+              validator: (value) {
+                if (value == null) {
+                  return 'Please Enter the description';
+                }
+                if (value.length == 0) {
+                  return 'Please Enter the description';
+                }
+                if (value.length < 10) {
+                  return 'Please Enter a description greater than 10 letters';
+                }
+                return null;
+              },
             controller:_myControllerDescription,
              maxLines: 3,
               keyboardType: TextInputType.multiline,
@@ -98,13 +135,25 @@ _SaveForm();
                   child: _myControllerforImage.text.isEmpty?Center(child: Text('No Image')):Image.network(
                       _myControllerforImage.text
                   ),
-                  decoration: BoxDecoration
+                  decoration: BoxDecoration(
                     border: Border.all(width: 1, color: Colors.grey)
                   ),
                   margin: EdgeInsets.only(top: 10.0, right: 8.0),
                 ),
                 Expanded(
                   child: TextFormField(
+                    validator: (value){
+                      if (value == null) {
+                        return 'Please Enter the URL';
+                      }
+                      if (value.length == 0) {
+                        return 'Please Enter the URL';
+                      }
+                      if(!value.startsWith('http') && !value.startsWith('https') && !value.endsWith('jpg') && !value.endsWith('png')){
+                        return 'Please Enter a Valid Image';
+                      }
+                      return null;
+                        },
                     controller: _myControllerforImage,
                     onChanged: (data){
 
@@ -115,7 +164,7 @@ _SaveForm();
                     keyboardType: TextInputType.url,
                     decoration: InputDecoration(
 
-                      labelText: 'Enter the URL'
+                      labelText: 'Enter the Image URL'
                     ),
                   ),
                 )
