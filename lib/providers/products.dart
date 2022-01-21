@@ -50,7 +50,7 @@ class Products with ChangeNotifier {
   }
 
   void addItem(Product value) {
-    // _list.add(value);
+     _list.add(value);
     notifyListeners();
   }
 

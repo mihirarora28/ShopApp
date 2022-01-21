@@ -24,10 +24,21 @@ class appDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed('/');
             },
             title: Text('My Shop'),
             leading: Icon(Icons.shopping_cart),
+          ),
+          Divider(
+            height: 5.0,
+            thickness: 2.0,
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed('/UserProductDetailsScreen');
+            },
+            title: Text('Change the Products'),
+            leading: Icon(Icons.panorama_rounded),
           ),
         ],
       ),

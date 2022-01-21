@@ -4,7 +4,9 @@ import 'package:shop_app/models/cart.dart';
 import 'package:shop_app/providers/orders.dart';
 import 'package:shop_app/providers/products.dart';
 import 'package:shop_app/screens/drawer.dart';
+import 'package:shop_app/screens/editMyProducts.dart';
 import 'package:shop_app/screens/orders_screen.dart';
+import 'package:shop_app/screens/users_product.dart';
 import 'package:shop_app/widgets/badge.dart';
 import 'package:shop_app/widgets/product.dart';
 import 'package:shop_app/widgets/productDetails.dart';
@@ -48,6 +50,8 @@ class MyApp extends StatelessWidget {
           '/categories': (ctx) => ProductDetails(),
           '/cartScreen': (ctx) => cartScreen(),
           '/cartScreen2': (ctx) => ordersScreen(),
+          '/UserProductDetailsScreen': (ctx) => ProductDetailsUserChange(),
+          '/editMyProducts': (ctx) => EditMyForms(),
         },
       ),
     );

@@ -82,14 +82,16 @@ class cartScreen extends StatelessWidget {
                     ),
                     confirmDismiss: (direction) =>showDialog(context: context,
                         builder: (ctx)=>  AlertDialog(
-                        title: Text('Do you really want to delete the Row'),
+                        title: Text('Do you really want to delete the row'),
                         actions: [
                           FlatButton(onPressed: (){
                             Navigator.of(context).pop(true);
-                          }, child: Text('YES')),
+                          },
+
+                              child: Text('YES',style: TextStyle(color:Theme.of(context).accentColor,),) ),
                           FlatButton(onPressed: (){
                             Navigator.of(context).pop(false);
-                          }, child: Text('NO')),
+                          }, child: Text('NO', style: TextStyle(color:Theme.of(context).accentColor,),)),
                         ],
                       )
                     ),
@@ -99,37 +101,42 @@ class cartScreen extends StatelessWidget {
                     },
                     child: Card(
                         elevation: 5.0,
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.purple,
-                            child: Padding(
-                              padding: EdgeInsets.all(3.0),
-                              child: FittedBox(
-                                child: Text(
+                        child: Container(
+                          height:  100,
+                          child: Center(
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.purple,
+                                child: Padding(
+                                  padding: EdgeInsets.all(3.0),
+                                  child: FittedBox(
+                                    child: Text(
+                                      ((product.item.values.toList()[i].price) *
+                                              (product.item.values
+                                                  .toList()[i]
+                                                  .quantity))
+                                          .toStringAsFixed(2),
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              title: Text(product.item.values.toList()[i].title),
+                              subtitle: Text('Total Amount: ' +
                                   ((product.item.values.toList()[i].price) *
                                           (product.item.values
                                               .toList()[i]
                                               .quantity))
-                                      .toStringAsFixed(2),
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                                      .toStringAsFixed(3)),
+                              trailing: Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Text('X ' +
+                                    product.item.values
+                                        .toList()[i]
+                                        .quantity
+                                        .toString(),),
                               ),
                             ),
-                          ),
-                          title: Text(product.item.values.toList()[i].title),
-                          subtitle: Text('Total Amount: ' +
-                              ((product.item.values.toList()[i].price) *
-                                      (product.item.values
-                                          .toList()[i]
-                                          .quantity))
-                                  .toStringAsFixed(3)),
-                          trailing: Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text('X ' +
-                                product.item.values
-                                    .toList()[i]
-                                    .quantity
-                                    .toString()),
                           ),
                         )),
                   );
