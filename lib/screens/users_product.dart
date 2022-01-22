@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/products.dart';
 import 'package:shop_app/screens/drawer.dart';
+import 'editMyProducts.dart';
 class ProductDetailsUserChange extends StatelessWidget {
 
   @override
@@ -47,8 +48,8 @@ class ProductDetailsUserChange extends StatelessWidget {
                           productsofScreen.deleteAnItem(myList[index].id);
                         }, icon: Icon(Icons.delete,color: Theme.of(context).errorColor,)),
                         IconButton(onPressed: (){
-
-                        }, icon: Icon(Icons.edit),),
+                          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>EditMyForms(myList[index].id)));
+                        }, icon: Icon(Icons.edit,color: Theme.of(context).accentColor,),),
                       ],
                 ),
               ),

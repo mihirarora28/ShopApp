@@ -57,6 +57,15 @@ class Products with ChangeNotifier {
     _list.removeWhere((element) => element.id == id);
         notifyListeners();
   }
+  void updateAnItem(String id,String title, String Description, String url, double Price){
+   int index =  _list.indexWhere((element) => element.id == id);
+   _list[index].id = id;
+   _list[index].title = title;
+   _list[index].price = Price;
+   _list[index].imageUrl = url;
+   _list[index].description = Description;
+    notifyListeners();
+  }
   // void myfavourites() {
   //   isFavourties = true;
   //   notifyListeners();

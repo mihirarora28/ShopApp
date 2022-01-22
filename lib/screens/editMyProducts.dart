@@ -3,13 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/providers/products.dart';
 class EditMyForms extends StatefulWidget {
-  const EditMyForms({Key? key}) : super(key: key);
-
+  final editedId;
+EditMyForms(this.editedId);
   @override
   _EditMyFormsState createState() => _EditMyFormsState();
 }
 
 class _EditMyFormsState extends State<EditMyForms> {
+  var _screenOpening = false;
+
   final _formKey = GlobalKey<FormState>();
   final _priceFocusNode = FocusNode();
   final _DescriptionFocusNode = FocusNode();
@@ -17,7 +19,22 @@ class _EditMyFormsState extends State<EditMyForms> {
   final _myControllerTitle = TextEditingController();
   final _myControllerPrice = TextEditingController();
   final _myControllerDescription = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    if(widget.editedId == null){
 
+    }
+    else{
+     final items =  Provider.of<Products>(context,listen: false).getById(widget.editedId);
+        _screenOpening = true;
+       _myControllerDescription.text = items.description;
+       _myControllerforImage.text = items.imageUrl;
+       _myControllerPrice.text = items.price.toString();
+       _myControllerTitle.text = items.title;
+    }
+    super.initState();
+  }
   void _SaveForm(){
     final isValid  = _formKey.currentState?.validate();
     if(isValid == false){
@@ -36,7 +53,14 @@ class _EditMyFormsState extends State<EditMyForms> {
       id: 'p' + pproducts.items.length.toString()
 
     );
+    if(_screenOpening == true){
+      pproducts.updateAnItem(widget.editedId, title, description,ImageUrl, price);
+      // pproducts.addItem(newProduct);
+      Navigator.of(context).pop();
+      return;
+    }
     pproducts.addItem(newProduct);
+    Navigator.of(context).pop();
   }
   @override
   void dispose() {

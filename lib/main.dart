@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           '/cartScreen': (ctx) => cartScreen(),
           '/cartScreen2': (ctx) => ordersScreen(),
           '/UserProductDetailsScreen': (ctx) => ProductDetailsUserChange(),
-          '/editMyProducts': (ctx) => EditMyForms(),
+          '/editMyProducts': (ctx) => EditMyForms(null),
         },
       ),
     );
